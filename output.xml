@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.3 on win32)" generated="2026-06-07T18:26:24.692301" rpa="false" schemaversion="5">
+<suite id="s1" name="Practice5" source="C:\Users\Kamali\PycharmProjects\PythonProject\tests\practice5.robot">
+<test id="s1-t1" name="Search Selenium input" line="5">
+<kw name="Launch Browser">
+<msg time="2026-06-07T18:26:24.802918" level="FAIL">No keyword with name 'Launch Browser' found.</msg>
+<status status="FAIL" start="2026-06-07T18:26:24.802479" elapsed="0.000563">No keyword with name 'Launch Browser' found.</status>
+</kw>
+<kw name="Search Text">
+<arg>Google</arg>
+<status status="NOT RUN" start="2026-06-07T18:26:24.803694" elapsed="0.000092"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-06-07T18:26:24.804197" elapsed="0.000049"/>
+</kw>
+<kw name="Close Browser">
+<status status="NOT RUN" start="2026-06-07T18:26:24.804686" elapsed="0.000056"/>
+</kw>
+<status status="FAIL" start="2026-06-07T18:26:24.798560" elapsed="0.006690">No keyword with name 'Launch Browser' found.</status>
+</test>
+<status status="FAIL" start="2026-06-07T18:26:24.696386" elapsed="0.110159"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Practice5" id="s1" pass="0" fail="1" skip="0">Practice5</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-06-07T18:26:24.677755" level="ERROR">Error in file 'C:\Users\Kamali\PycharmProjects\PythonProject\tests\practice5.robot' on line 2: Non-existing setting 'Resource ../resources/common_keywords.robot'.</msg>
+</errors>
+</robot>

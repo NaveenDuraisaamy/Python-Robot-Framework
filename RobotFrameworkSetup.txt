@@ -1,0 +1,338 @@
+========================================================
+ROBOT FRAMEWORK COMPLETE SETUP GUIDE (WINDOWS)
+========================================================
+
+Author: Naveen
+Purpose: Install and Configure Robot Framework from Scratch
+
+========================================================
+STEP 1: INSTALL PYTHON
+========================================================
+
+Download Python:
+
+https://www.python.org/downloads/
+
+During installation:
+
+[✓] Add Python to PATH
+
+Verify Installation:
+
+Command:
+
+python --version
+
+Expected Output:
+
+Python 3.x.x
+
+
+========================================================
+STEP 2: CREATE PROJECT
+========================================================
+
+Create Project Folder:
+
+PythonProject
+
+Example Structure:
+
+PythonProject
+│
+├── login.robot
+└── main.py
+
+
+========================================================
+STEP 3: CREATE VIRTUAL ENVIRONMENT
+========================================================
+
+Open Terminal inside project folder.
+
+Command:
+
+python -m venv .venv
+
+This creates:
+
+PythonProject
+│
+├── .venv
+├── login.robot
+└── main.py
+
+
+========================================================
+STEP 4: ACTIVATE VIRTUAL ENVIRONMENT
+========================================================
+
+Windows PowerShell:
+
+.venv\Scripts\activate
+
+Expected:
+
+(.venv) PS C:\PythonProject>
+
+
+========================================================
+STEP 5: INSTALL ROBOT FRAMEWORK
+========================================================
+
+Command:
+
+pip install robotframework
+
+Verify:
+
+robot --version
+
+Expected:
+
+Robot Framework 7.x.x
+
+
+========================================================
+STEP 6: INSTALL SELENIUM LIBRARY
+========================================================
+
+Command:
+
+pip install robotframework-seleniumlibrary
+
+Verify:
+
+pip list
+
+Expected Packages:
+
+robotframework
+robotframework-seleniumlibrary
+selenium
+
+
+========================================================
+STEP 7: INSTALL PYCHARM
+========================================================
+
+Download:
+
+https://www.jetbrains.com/pycharm/
+
+Recommended:
+
+PyCharm Community Edition
+
+
+========================================================
+STEP 8: CONFIGURE PYCHARM INTERPRETER
+========================================================
+
+Open:
+
+File
+→ Settings
+→ Python Interpreter
+
+Select:
+
+PythonProject\.venv\Scripts\python.exe
+
+Verify Installed Packages:
+
+robotframework
+robotframework-seleniumlibrary
+
+
+========================================================
+STEP 9: INSTALL ROBOT FRAMEWORK PLUGIN
+========================================================
+
+Open:
+
+File
+→ Settings
+→ Plugins
+
+Search:
+
+Robot Framework
+
+Install:
+
+Robot Framework Language Server
+
+Restart PyCharm.
+
+
+========================================================
+STEP 10: CONFIGURE LANGUAGE SERVER
+========================================================
+
+If popup appears:
+
+"Python executable not specified"
+
+Provide:
+
+C:\Users\<username>\PycharmProjects\PythonProject\.venv\Scripts\python.exe
+
+Leave Language Server Args empty.
+
+Click:
+
+Save in Project Settings
+
+
+========================================================
+STEP 11: FIRST ROBOT TEST
+========================================================
+
+Create:
+
+login.robot
+
+Content:
+
+*** Test Cases ***
+My First Test
+    Log To Console    Hello Robot Framework
+
+Run:
+
+robot login.robot
+
+Expected:
+
+My First Test | PASS |
+
+
+========================================================
+STEP 12: FIRST SELENIUM TEST
+========================================================
+
+login.robot
+
+*** Settings ***
+Library    SeleniumLibrary
+
+*** Test Cases ***
+Open Google
+    Open Browser    https://google.com    chrome
+    Maximize Browser Window
+    Sleep    5s
+    Close Browser
+
+Run:
+
+robot login.robot
+
+Expected:
+
+Chrome browser opens.
+Test passes.
+
+
+========================================================
+STEP 13: GENERATED REPORTS
+========================================================
+
+After execution:
+
+output.xml
+log.html
+report.html
+
+Open:
+
+report.html
+
+or
+
+log.html
+
+in browser.
+
+
+========================================================
+RECOMMENDED LEARNING ORDER
+========================================================
+
+1. Robot Framework Basics
+2. Test Cases
+3. Variables
+4. Built-In Keywords
+5. SeleniumLibrary
+6. Locators
+   - id
+   - name
+   - xpath
+   - css
+
+7. User Defined Keywords
+8. Resource Files
+9. Data Driven Testing
+10. API Testing (RequestsLibrary)
+11. Page Object Model
+12. Parallel Execution
+13. Jenkins Integration
+14. Git Integration
+15. Docker Integration
+
+========================================================
+USEFUL COMMANDS
+========================================================
+
+Activate venv:
+
+.venv\Scripts\activate
+
+Install package:
+
+pip install <package_name>
+
+Check installed packages:
+
+pip list
+
+Check Robot version:
+
+robot --version
+
+Run single test file:
+
+robot login.robot
+
+Run folder:
+
+robot tests
+
+Generate reports:
+
+robot tests
+
+========================================================
+PROJECT STRUCTURE (BEST PRACTICE)
+========================================================
+
+Project
+│
+├── .venv
+├── tests
+│   ├── login.robot
+│   └── search.robot
+│
+├── resources
+│   └── common_keywords.robot
+│
+├── variables
+│   └── testdata.py
+│
+├── reports
+│
+└── README.md
+
+========================================================
+END OF GUIDE
+========================================================

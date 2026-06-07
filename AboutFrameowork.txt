@@ -1,0 +1,883 @@
+Lesson 1: Robot Framework Basics
+What is Robot Framework?
+Robot Framework is an open-source test automation framework.
+
+Used for:
+
+Web Testing
+API Testing
+Database Testing
+Desktop Testing
+Mobile Testing
+
+It follows a Keyword Driven Approach
+
+Exmples:
+
+Open Browser
+Input Text
+Click Button
+Close Browser
+
+These are called Keywords.
+----------------------------------------
+Structure of a Robot File
+
+A .robot file contains sections.
+
+*** Settings ***
+*** Variables ***
+*** Test Cases ***
+*** Keywords ***
+
+Think of it like:
+
+Settings     -> Imports
+Variables    -> Data
+Test Cases   -> Tests
+Keywords     -> Functions
+------------------------------
+1. Settings Section
+
+Used to import libraries.
+*** Settings ***
+Library    SeleniumLibrary
+
+Similar to Python:
+from selenium import webdriver
+
+2. Variables Section
+
+Store reusable values.
+*** Variables ***
+${URL}    https://google.com
+${BROWSER}    chrome
+
+${} means a scalar variable.Usage:
+Usage:
+Open Browser    ${URL}    ${BROWSER}
+
+3. Test Cases Section
+
+Actual tests.
+*** Test Cases ***
+Open Google
+    Log To Console    Hello Naveen
+
+Output:
+Hello Naveen
+PASS
+
+4. Keywords Section
+
+Custom reusable functions.
+*** Keywords ***
+Open Application
+Log To Console    App Opened
+
+Usage:
+*** Test Cases ***
+Test Login
+    Open Application
+
+----------------------------------
+Indentation Rule
+
+Robot uses 2 or more spaces between columns.
+
+Correct:
+Log To Console    Hello
+Wrong:
+Log To Console Hello
+----------------------------------
+First Real Example
+
+Create:
+*** Test Cases ***
+My First Test
+    Log To Console    Welcome to Robot Framework
+    Log To Console    Learning Automation
+Run:
+robot tests\login.robot
+----------------------------------
+Important Terms:
+
+| Term          | Meaning                  |
+| ------------- | ------------------------ |
+| Library       | Collection of Keywords   |
+| Keyword       | Action                   |
+| Test Case     | Test Scenario            |
+| Variable      | Store Data               |
+| Resource File | Shared Keywords          |
+| Suite         | Collection of Test Cases |
+
+----------------------------------
+Built-in Libraries
+Robot already provides:
+
+BuiltIn
+Collections
+String
+DateTime
+OperatingSystem
+
+Example:
+*** Test Cases ***
+Demo
+    Log To Console    Robot Framework
+------------------------------------Lesson 2----------------------------------------
+Test Cases (Industry Standard)
+
+In real projects, a test case contains:
+
+Documentation
+Tags
+Setup
+Teardown
+Assertions
+Reusable Steps
+
+1. Test Case Name
+*** Test Cases ***
+Verify User Can Login
+
+Not:
+TC1
+
+Always use business-friendly names.
+------------------------------
+2. Documentation
+
+Used to explain the purpose of the test.
+
+*** Test Cases ***
+Verify User Can Login
+    [Documentation]    Verify valid user login functionality
+    Log To Console     Login Successful
+
+3. Tags
+
+Used for filtering tests.
+
+*** Test Cases ***
+Verify User Can Login
+    [Tags]    Smoke    Login
+    Log To Console     Login Successful
+
+Run only smoke tests:
+1.robot -i Smoke tests
+2.robot -i Login tests
+
+4. Setup
+Runs before every test.
+
+Example:
+*** Test Cases ***
+Verify Login
+    [Setup]    Log To Console    Opening Browser
+
+    Log To Console    Login Test
+
+    [Teardown]    Log To Console    Closing Browser
+
+Output:
+Opening Browser
+Login Test
+Closing Browser
+
+5. Teardown
+
+Runs after test execution.
+
+Even if the test fails, teardown executes.
+
+Example:
+*** Test Cases ***
+Demo Test
+    Log To Console    Executing Test
+
+    [Teardown]    Log To Console    Cleanup Completed
+
+6. Multiple Tests Example
+*** Test Cases ***
+Verify Login
+    [Documentation]    Login validation
+    [Tags]    Smoke
+
+    Log To Console    Login Success
+
+Verify Search
+    [Documentation]    Search validation
+    [Tags]    Regression
+
+    Log To Console    Search Success
+
+7. Comments
+
+# This is comment
+
+*** Test Cases ***
+Demo
+    Log To Console    Hello
+
+8. Empty Lines
+
+Use empty lines to improve readability.
+
+Good:
+
+*** Test Cases ***
+Verify Login
+    Log To Console    Step 1
+
+    Log To Console    Step 2
+
+Most Important Concept
+Robot executes:
+Step 1
+Step 2
+Step 3
+
+line by line.
+If Step 2 fails:
+
+Step 1  -> PASS
+Step 2  -> FAIL
+Step 3  -> SKIPPED
+
+unless error handling is used.
+
+---------------Lession 3--------------------
+Variables are used to store data.
+
+There are 4 types you must know:
+1. Scalar Variables      ${}
+2. List Variables        @{}
+3. Dictionary Variables  &{}
+4. Command Line Variables
+--
+1. Scalar Variables
+Store a single value.
+
+*** Variables ***
+${NAME}      Naveen
+${CITY}      Chennai
+${AGE}       31
+
+Usage:
+
+*** Test Cases ***
+Print Details
+    Log To Console    ${NAME}
+    Log To Console    ${CITY}
+    Log To Console    ${AGE}
+----------------------------
+2. List Variables
+Store multiple values.
+
+*** Variables ***
+@{FRUITS}    Apple    Mango    Orange
+
+*** Test Cases ***
+Print Fruits:
+    Log To Console    ${FRUITS}[0]
+    Log To Console    ${FRUITS}[1]
+    Log To Console    ${FRUITS}[2]
+
+Apple
+Mango
+Orange
+
+Print Entire List:
+
+*** Test Cases ***
+Show List
+    Log To Console    @{FRUITS}
+Output:
+Apple Mango Orange
+------------------------
+3. Dictionary Variables
+Store key-value pairs.
+
+*** Variables ***
+&{USER}
+...    name=Naveen
+...    city=Chennai
+...    role=Tester
+
+*** Test Cases ***
+Print User
+    Log To Console    ${USER.name}
+    Log To Console    ${USER.city}
+    Log To Console    ${USER.role}
+Output:
+Naveen
+Chennai
+Tester
+-------------------------
+4. Variables Inside Variables
+
+*** Variables ***
+${FIRSTNAME}    Naveen
+${LASTNAME}     D
+
+${FULLNAME}     ${FIRSTNAME} ${LASTNAME}
+
+Log To Console    ${FULLNAME}
+output:
+Naveen D
+----------------------------
+Variable Naming Standards:
+
+${USERNAME}
+${PASSWORD}
+${BASE_URL}
+-----------------------------
+Command Line Variables:
+Useful in CI/CD.
+
+*** Test Cases ***
+Print Environment
+    Log To Console    ${ENV}
+
+robot -v ENV:QA tests\test.robot
+Output:
+QA
+robot -v ENV:PROD tests\test.robot
+PROD
+------------------------------
+------------------------------Lesson 4: Built-In Keywords--------------------------
+BuiltIn is the most important library in Robot Framework.
+
+Log To Console
+
+1. Should Be Equal
+*** Test Cases ***
+Verify Equal
+    Should Be Equal    Naveen    Naveen
+
+2. Should Contain
+*** Test Cases ***
+Verify Text
+    Should Contain    Automation Testing    Testing
+
+3. Should Not Contain
+Should Not Contain    Robot Framework    Cypress
+
+4. Create List
+
+Create list dynamically.
+
+*** Test Cases ***
+Demo
+    @{tools}=    Create List    Robot    Selenium    Python
+
+    Log To Console    ${tools}[0]
+
+5. Get Length
+*** Test Cases ***
+Demo
+    @{tools}=    Create List    Robot    Selenium    Python
+
+    ${count}=    Get Length    ${tools}
+
+    Log To Console    ${count}
+
+6. Length Should Be
+*** Test Cases ***
+Verify Count
+    @{tools}=    Create List    Robot    Selenium    Python
+
+    Length Should Be    ${tools}    3
+
+7. Run Keyword If
+*** Test Cases ***
+Demo
+    ${browser}=    Set Variable    Chrome
+
+    Run Keyword If
+    ...    '${browser}' == 'Chrome'
+    ...    Log To Console
+    ...    Chrome Selected
+
+8. Set Variable
+*** Test Cases ***
+Demo
+    ${name}=    Set Variable    Naveen
+
+    Log To Console    ${name}
+
+9. Set Test Variable
+Available everywhere in the same test.
+
+*** Test Cases ***
+Demo
+    Set Test Variable    ${NAME}    Naveen
+
+    Log To Console    ${NAME}
+
+10. Fail
+Force failure.
+
+*** Test Cases ***
+Demo
+    Fail    Login Failed
+
+---------------------Lesson 5: SeleniumLibrary--------------------------
+Now we start actual UI Automation.
+
+SeleniumLibrary Keywords
+Most used keywords:
+
+| Keyword                 | Purpose        |
+| ----------------------- | -------------- |
+| Open Browser            | Launch Browser |
+| Maximize Browser Window | Maximize       |
+| Input Text              | Enter text     |
+| Click Element           | Click          |
+| Click Button            | Click button   |
+| Get Text                | Read text      |
+| Close Browser           | Close browser  |
+
+
+Step 1: Import SeleniumLibrary
+*** Settings ***
+Library    SeleniumLibrary
+
+Step 2: Open Browser
+*** Test Cases ***
+Open Google
+    Open Browser    https://www.google.com    chrome
+
+Parameters:
+Open Browser    URL    Browser
+
+Example:
+Open Browser    https://google.com    chrome
+
+Step 3: Maximize Window
+*** Test Cases ***
+Open Google
+    Open Browser    https://google.com    chrome
+    Maximize Browser Window
+
+Step 4: Sleep
+Temporary wait.
+
+Sleep    3s
+
+Example:
+Open Browser    https://google.com    chrome
+Sleep    5s
+
+Step 5: Close Browser
+Close Browser
+
+Example:
+*** Test Cases ***
+Open Google
+    Open Browser    https://google.com    chrome
+    Sleep    5s
+    Close Browser
+
+-------------------------------
+Browser Setup Keyword
+Instead of repeating code:
+
+Open Browser
+Maximize Browser Window
+
+Create reusable keyword:
+
+*** Keywords ***
+Launch Browser
+    Open Browser    https://www.google.com    chrome
+    Maximize Browser Window
+
+*** Test Cases ***
+Verify Google
+    Launch Browser
+
+    Sleep    5s
+
+    Close Browser
+
+------
+
+Important Concept
+In SeleniumLibrary:
+
+Open Browser
+
+opens browser.
+--
+But to interact with elements we need:
+Locators
+
+Examples:
+
+id=username
+name=q
+xpath=//input
+css=input[name='q']
+
+Locators are the heart of UI automation.
+
+------------------------Lesson 6: Locators------------------
+Without locators, Selenium cannot find elements.
+
+Think:
+
+Website
+  ↓
+Locator
+  ↓
+Element
+  ↓
+Action
+
+Example:
+
+Google Search Box
+        ↓
+name=q
+        ↓
+Input Text
+
+Types of Locators
+
+Most used:
+
+id
+name
+xpath
+css
+
+Interview Priority:
+1. id
+2. css
+3. xpath
+4. name
+
+---------
+1. ID Locator
+<input id="username">
+Input Text    id=username    Naveen
+
+2. Name Locator
+<input name="q">
+Input Text    name=q    Robot Framework
+
+Google search box uses:
+name=q
+
+3. XPath Locator
+<input name="q">
+XPath:
+xpath=//input[@name='q']
+
+Usage:
+Input Text    xpath=//input[@name='q']    Robot Framework
+
+--------------
+XPath Basics
+
+Find by attribute:
+xpath=//input[@id='username']
+Find button:
+xpath=//button[@type='submit']
+Find link:
+xpath=//a[text()='Login']
+--------------
+4. CSS Locator
+
+<input id="username">
+css=#username
+<input name="q">
+css=input[name='q']
+
+---------
+Which Locator to Use?
+
+Preferred order:
+
+ID
+↓
+CSS
+↓
+NAME
+↓
+XPath
+
+Avoid long XPath whenever possible.
+
+---------
+Waits
+Wait Until Element Is Visible
+Wait Until Page Contains
+Wait Until Element Is Enabled
+---------
+
+-------------------Lesson 7: User Defined Keywords-------------------
+
+This is where Robot Framework becomes powerful.
+
+Without Keywords:
+
+*** Test Cases ***
+Search Google
+
+    Open Browser    https://www.google.com    chrome
+    Maximize Browser Window
+
+    Input Text    name=q    Robot Framework
+
+    Press Keys    name=q    ENTER
+
+    Sleep    3s
+
+    Close Browser
+
+If you need this in 50 tests, you'll repeat code 50 times.
+-----------------
+
+User Defined Keywords = Functions in Python
+
+Python:
+def launch_browser():
+    pass
+
+
+Robot:
+*** Keywords ***
+Launch Browser
+    Open Browser    https://www.google.com    chrome
+    Maximize Browser Window
+
+
+Creating Your First Keyword
+*** Keywords ***
+Launch Browser
+    Open Browser    https://www.google.com    chrome
+    Maximize Browser Window
+
+
+Usage:
+
+*** Test Cases ***
+Search Google
+
+    Launch Browser
+
+    Sleep    3s
+
+    Close Browser
+
+ -----------
+ Multiple Keywords
+
+ *** Keywords ***
+Launch Browser
+    Open Browser    https://www.google.com    chrome
+    Maximize Browser Window
+
+Search Robot Framework
+    Input Text    name=q    Robot Framework
+    Press Keys    name=q    ENTER
+
+Usage:
+*** Test Cases ***
+Verify Search
+
+    Launch Browser
+
+    Search Robot Framework
+
+    Sleep    3s
+
+    Close Browser
+
+----------------------
+Keyword With Arguments
+Most important concept.
+
+*** Keywords ***
+Search Text
+    [Arguments]    ${SearchValue}
+
+    Input Text    name=q    ${SearchValue}
+    Press Keys    name=q    ENTER
+
+Usage:
+
+*** Test Cases ***
+Verify Search
+
+    Launch Browser
+
+    Search Text    Selenium
+
+    Sleep    3s
+
+    Close Browser
+
+---------------------
+Real Framework Example
+
+*** Keywords ***
+Login Application
+    [Arguments]    ${username}    ${password}
+
+    Input Text    id=username    ${username}
+    Input Text    id=password    ${password}
+
+    Click Button    id=login
+
+Usage:
+
+Login Application    admin    admin123
+
+This is how real automation frameworks are built.
+
+--------------------
+Return Values
+Keyword can return values.
+
+*** Keywords ***
+Get Page Title
+    ${title}=    Get Title
+    RETURN    ${title}
+
+Usage:
+
+*** Test Cases ***
+Verify Title
+
+    Open Browser    https://google.com    chrome
+
+    ${title}=    Get Page Title
+
+    Log To Console    ${title}
+
+--------------------
+
+Best Practice
+Keep test cases small:
+
+*** Test Cases ***
+Verify Search
+    Launch Browser
+    Search Text    Robot Framework
+    Verify Results
+    Close Browser
+
+Put all implementation inside keywords.
+
+-----------------Lesson 8: Resource Files--------------
+This is where framework development begins.
+
+Framework Structure
+
+Project
+│
+├── tests
+│   └── google.robot
+│
+├── resources
+│   └── common_keywords.robot
+│
+└── variables
+
+
+Create Resource File
+
+Create:
+resources/common_keywords.robot
+Content:
+*** Settings ***
+Library    SeleniumLibrary
+
+*** Keywords ***
+Launch Browser
+    Open Browser    https://www.google.com    chrome
+    Maximize Browser Window
+
+Search Text
+    [Arguments]    ${search_text}
+
+    Input Text    name=q    ${search_text}
+    Press Keys    name=q    ENTER
+
+----------
+Use Resource File
+
+Create:
+tests/google.robot
+
+Content:
+*** Settings ***
+Resource    ../resources/common_keywords.robot
+
+*** Test Cases ***
+Search Robot Framework
+
+    Launch Browser
+
+    Search Text    Robot Framework
+
+    Sleep    3s
+
+    Close Browser
+------
+Why Resource Files?
+
+Imagine:
+100 test cases
+20 common actions
+
+Without Resource Files:
+2000+ duplicate lines
+
+With Resource Files:
+Reusable keywords
+Centralized maintenance
+
+This is how enterprise frameworks are built.
+
+------------------Lesson 9: Data Driven Testing------------------
+This is one of the most important interview topics.
+
+Instead of:
+Search Text    Selenium
+and
+Search Text    Robot Framework
+and
+Search Text    Playwright
+
+creating 3 separate test cases...
+
+We can pass different values to the same test.
+
+Method 1: Test Template
+
+*** Settings ***
+Resource    ../resources/common_keywords.robot
+
+Test Template    Search Keyword
+
+//*** Test Cases ***
+Search Selenium         Selenium
+Search RobotFramework   Robot Framework
+Search Playwright       Playwright
+
+*** Keywords ***
+Search Keyword
+    [Arguments]    ${search_text}
+
+    Launch Browser
+
+    Search Text    ${search_text}
+
+    Sleep    3s
+
+    Close Browser

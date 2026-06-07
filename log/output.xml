@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.3 on win32)" generated="2026-06-07T18:29:59.597336" rpa="false" schemaversion="5">
+<suite id="s1" name="Practice5" source="C:\Users\Kamali\PycharmProjects\PythonProject\tests\practice5.robot">
+<test id="s1-t1" name="Search Selenium input" line="5">
+<kw name="Launch Browser" owner="common_keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-07T18:30:00.772342" level="INFO">Opening browser 'chrome' to base url 'https://www.google.com/'.</msg>
+<arg>https://www.google.com/</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-07T18:30:00.771695" elapsed="5.609114"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-07T18:30:06.381439" elapsed="0.083885"/>
+</kw>
+<status status="PASS" start="2026-06-07T18:30:00.769412" elapsed="5.696373"/>
+</kw>
+<kw name="Search Text" owner="common_keywords">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-07T18:30:06.469734" level="INFO">Typing text 'Google' into text field 'name=q'.</msg>
+<arg>name=q</arg>
+<arg>${Search}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-07T18:30:06.468242" elapsed="0.299838"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-06-07T18:30:06.769869" level="INFO">Sending key(s) ('ENTER',) to name=q element.</msg>
+<msg time="2026-06-07T18:30:07.196002" level="INFO">Pressing special key ENTER to element.</msg>
+<msg time="2026-06-07T18:30:07.196844" level="INFO">Releasing special key ENTER.</msg>
+<arg>name=q</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-06-07T18:30:06.768802" elapsed="2.231445"/>
+</kw>
+<arg>Google</arg>
+<status status="PASS" start="2026-06-07T18:30:06.467098" elapsed="2.533623"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-06-07T18:30:12.003539" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-06-07T18:30:09.001199" elapsed="3.003014"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-07T18:30:12.004961" elapsed="2.700615"/>
+</kw>
+<status status="PASS" start="2026-06-07T18:30:00.767345" elapsed="13.939118"/>
+</test>
+<status status="PASS" start="2026-06-07T18:29:59.635793" elapsed="15.074327"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Practice5" id="s1" pass="1" fail="0" skip="0">Practice5</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
