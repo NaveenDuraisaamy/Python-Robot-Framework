@@ -881,3 +881,42 @@ Search Keyword
     Sleep    3s
 
     Close Browser
+--------------Lesson 10-----------------
+API
+
+pip install robotframework-requests
+pip list | findstr requests
+
+--------Lesson 11: Page Object Model (POM)------------
+This is one of the most commonly asked automation framework concepts in interviews.
+
+---
+
+Separate:
+
+Tests
+↓
+Page Actions
+↓
+Locators
+
+----
+
+Structure:
+
+Project
+│
+├── tests
+│   └── login.robot
+│
+├── pages
+│   └── login_page.robot
+│
+├── resources
+│
+└── variables
+
+---
+Create Login Page
+
+pages/login_page.robot

@@ -1,9 +1,9 @@
 *** Settings ***
-Library    SeleniumLibrary
+Resource    ../pages/login_page.robot
 
 *** Test Cases ***
-Open Google
-    Open Browser    https://google.com    chrome
-    Maximize Browser Window
-    Sleep    5s
-    Close Browser
+Verify Login
+
+    Enter Username    student
+    Enter Password    Password123
+    Click Login
